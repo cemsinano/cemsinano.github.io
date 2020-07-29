@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+    <title> Cem Sinan Ozturk | Tradeoff between False Positive and False Negatives Errors with Examples </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.68.3" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Data Scientist &#43; Financial Engineer">
+    
+    <link rel="stylesheet" href="https://cemsinano.github.io/css/style.min.67cd718c0a3c8009c771494d381fb7128246a454bd0518fed97cb65d257db948.css" integrity="sha256-Z81xjAo8gAnHcUlNOB&#43;3EoJGpFS9BRj&#43;2Xy2XSV9uUg=" crossorigin="anonymous" type="text/css"><link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
+    <link rel="shortcut icon" href="https://cemsinano.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cemsinano.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cemsinano.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cemsinano.github.io/favicons/favicon-16x16.png">
+    <link rel="canonical" href="https://cemsinano.github.io/post/hypothesis-testing/">
+    
+    
+    <script type="text/javascript" src="https://cemsinano.github.io/js/anatole-header.min.c275265a259296f3dd50e8236a77fcbcadb1dbb9597d3045c675dcc2c7c58a93.js" integrity="sha256-wnUmWiWSlvPdUOgjanf8vK2x27lZfTBFxnXcwsfFipM=" crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://cemsinano.github.io/images/"/>
+
+<meta name="twitter:title" content="Tradeoff between False Positive and False Negatives Errors with Examples"/>
+<meta name="twitter:description" content="Hypothesis Testing, Type I and Type II Errors with Examples"/>
+
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="https://cemsinano.github.io/images/profile.jpg" alt="profile picture">
+        <h3 title=""><a href="/">Cem Sinan Ozturk</a></h3>
+        <div class="description">
+          <p>Data Scientist &#43; Financial Engineer</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <li>
+        <a href="https://www.linkedin.com/in/cemsinanozturk" rel="me" aria-label="Linkedin">
+          <i class="fa fa-2x fa-linkedin" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+        <li>
+        <a href="https://github.com/cemsinano" rel="me" aria-label="GitHub">
+          <i class="fa fa-2x fa-github" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+        <li>
+        <a href="mailto:cemsinanozturk@gmail.com" rel="me" aria-label="e-mail">
+          <i class="fa fa-2x fa-envelope" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; Cem Sinan Ozturk 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <ul class="nav">
+        
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+        
+        
+        <li><a  href="/post/" title="">Posts</a></li>
+        
+        
+        <li><a  href="/about/" title="">About</a></li>
+        
+    </ul>
+    <div class="themeswitcher">
+        <a class="theme-switch" title="Switch Theme">
+            <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>
+
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Tradeoff between False Positive and False Negatives Errors with Examples
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Sat, Sep 23, 2017</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">4-minute read</span>
+        </div>
+        
+        </div>
+
+    <h2 id="explanation-of-hypothesis-testing-type-i-and-type-ii-errors-with-examples">Explanation of Hypothesis Testing, Type I and Type II Errors with Examples:</h2>
+<p>Let&rsquo;s think you were at a bar and drinking your beer with your friends. Some drunk guys started fighting next to you, and you tried to stop them. One man shot another and left the gun in your pocket. Then, the police were there, got you and some of the guys. But, the guy fired the gun had found a way to escape. They took you all into custody to reveal who shot that poor man. In the end, you have been found guilty, and nobody even talked about the guy escaped.</p>
+<p>Is it fair? No, it does not seem fair to put you in jail and let the real offender escape.</p>
+<p>This mistake comes up due to the nature of decision-making. How and, more importantly, why?</p>
+<p>To get to that point, I need to explain what <em>hypothesis testing</em> is. First of all, what is hypothesis testing?</p>
+<p>It is a statistical way of verification of a claim, and it is called the <strong>hypothesis testing</strong>. At hypothesis testing, your question has two alternative answers either <em>&ldquo;You are guilty.&quot;</em>, or <em>&ldquo;You are not guilty.&quot;</em>.</p>
+<p>You pick one of those as your basis without knowing if it is true or not. What you choose is called the <strong>null hypothesis</strong>. The other one is called the <strong>alternative hypothesis</strong>.</p>
+<p>Let&rsquo;s say we choose <em>&ldquo;You are guilty&rdquo;</em> as our <em>null hypothesis</em>. As I said before, it doesn&rsquo;t matter if it is true or false at this stage.</p>
+<p>Then, it is good to list what all possible values of this case are. The <em>hypothesis test</em> can give four possible results for this question.</p>
+<ol>
+<li>Although you are not guilty, the judge declares you are guilty. <strong>False!</strong></li>
+<li>You are not guilty, and the judge declares you are not guilty. <strong>True!</strong></li>
+<li>You are guilty, and the judge declares you are guilty. <strong>True!</strong></li>
+<li>You are guilty, but the judge declares you are not guilty. <strong>False!</strong></li>
+</ol>
+<p>The judge makes a wrong decision in the 2<!-- raw HTML omitted -->nd<!-- raw HTML omitted --> and 4<!-- raw HTML omitted -->th<!-- raw HTML omitted -->. In statistics, these two cases have different meanings.</p>
+<p>For 2<!-- raw HTML omitted -->nd<!-- raw HTML omitted --> case, although you are not guilty, you are sent to the jail. This is the incorrect rejection of a true null hypothesis; it represents a <em>&ldquo;False Positive&rdquo;</em> called the <strong>&ldquo;Type I Error&rdquo;</strong>.</p>
+<p>For 4<!-- raw HTML omitted -->th<!-- raw HTML omitted --> case, think the question, again, <em>&ldquo;Is the guy escaped guilty?&quot;</em> Yes, but they let him free. It is an example of incorrectly retaining a false null hypothesis. It represents a <em>&ldquo;False Negative&rdquo;</em> called the <strong>&ldquo;Type II Error&rdquo;</strong>.</p>
+<p>Both errors work against each other. When you make an analysis, you will always have the error. Therefore, you need to trade off between two. The graph below visualizes how the errors overlap.</p>
+<p><img src="/images/distribution.png" alt="Figure 1"></p>
+<p><em>Image source: <a href="http://math.emory.edu/~lchen41/teaching/2020_Spring/Chapter-6_compact.pdf">http://math.emory.edu/~lchen41/teaching/2020_Spring/Chapter-6_compact.pdf</a></em></p>
+<p>You want to catch all criminals. At the same time, you care human rights as the law says one is <em>&ldquo;innocent until proven guilty&rdquo;</em>. But, in real life, you have to sacrifice one or the other.</p>
+<p>As human rights are essential, you may have to release some criminals due to the insufficiency of evidence. In this case, your primary goal is minimizing the <em>&ldquo;false positives&rdquo;</em>(<em>type I error</em>). You want to catch all the criminals but have to be careful with human rights, and be sure with enough evidence.</p>
+<p>We can touch on another example to grasp the concept better. In this case, you feel under the weather and go to a medical examination. You tell the doctor how you fell and the doctor makes some tests and diagnoses what your situation is.</p>
+<p>Now, it is time to apply what we learn from the previous example. First of all, we need a <em>null hypothesis</em>. Assume, our null hypothesis is <em>&ldquo;You have a disease.&quot;</em>. Then, we can make a table to summarize what all cases are.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>You are sick (Null Hypothesis)</th>
+<th>You are not sick (Alternative Hypothesis)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The doctor says you have a disease</strong></td>
+<td>Right Decision!</td>
+<td>False Positive (Type I Error)</td>
+</tr>
+<tr>
+<td><strong>The doctor says you don&rsquo;t have a disease</strong></td>
+<td>False Negative (Type II Error)</td>
+<td>Right Decision!</td>
+</tr>
+</tbody>
+</table>
+<p>Imagine that the doctor says you are alright although you have a disease. Then, your disease may lead serious issues.</p>
+<p>On the other hand, the doctor may prescribe medication although you are alright. You take that medication which may have serious side-effects.</p>
+<p>In both cases, the doctor unintentionally makes a mistake, and it affects your life severely. Now, think which one you prefer, the doctor either prescribes unnecessary medication or leaves you untreated you when you need treatment.</p>
+<p>It may be the reason some doctors tend to prescribe medication to keep them safe, and they may think side-effects are small issues compared to the illnesses. Here, the doctor intuitively tries to minimize <em>&ldquo;false negatives&rdquo;</em>(<em>type II error</em>).</p>
+<p>As you realize, for our examples, the judge and the doctor tend to minimize different types of errors.</p>
+<p>All in all, one should be careful while doing an analysis and decide which error is more dangerous for his/her study. So, as data scientists, we need to select accuracy measures derived from confusion matrix carefully.</p>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+        
+      </div>
+    </div>
+
+    
+           
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+
+
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js" integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw=" crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js" integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js" integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro=" crossorigin="anonymous"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/&#43;DiW/UqRcLbRjq" crossorigin="anonymous"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l&#43;B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd&#43;qj&#43;o24G5ZU2zJz" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script></html></body>
+
+</html>

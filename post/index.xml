@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Website of Cem Sinan Ozturk</title>
+    <link>https://cemsinano.github.io/post/</link>
+    <description>Recent content in Posts on Website of Cem Sinan Ozturk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 09 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://cemsinano.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Horse Racing</title>
+      <link>https://cemsinano.github.io/post/horse-racing/</link>
+      <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/horse-racing/</guid>
+      <description>The project repository is accessible, here.</description>
+    </item>
+    
+    <item>
+      <title>Sleep Matters 😴</title>
+      <link>https://cemsinano.github.io/post/sleep-matters/</link>
+      <pubDate>Fri, 20 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/sleep-matters/</guid>
+      <description>Survey Design and Statistical Analysis on Sleep Time of Students</description>
+    </item>
+    
+    <item>
+      <title>climate-R</title>
+      <link>https://cemsinano.github.io/post/climater-weather-api-wrapper/</link>
+      <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/climater-weather-api-wrapper/</guid>
+      <description>climateR is a R wrapper for MetaWeather API.
+The project repository is accessible, here.</description>
+    </item>
+    
+    <item>
+      <title>Karl</title>
+      <link>https://cemsinano.github.io/post/karl/</link>
+      <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/karl/</guid>
+      <description>The project repository is accessible, here.
+An R package for quick and clean Linear Regression Analysis.</description>
+    </item>
+    
+    <item>
+      <title>Pythia</title>
+      <link>https://cemsinano.github.io/post/pythia/</link>
+      <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/pythia/</guid>
+      <description>The project repository is accessible, here.
+A Python package for quick and clean Linear Regression Analysis.</description>
+    </item>
+    
+    <item>
+      <title>Analysis of Forest Fires Dataset</title>
+      <link>https://cemsinano.github.io/post/forest-fire-feature-selection/</link>
+      <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/forest-fire-feature-selection/</guid>
+      <description>Response Variable and Predictors: Response Variable: area which is the burned area in forest.</description>
+    </item>
+    
+    <item>
+      <title>Wine Selector RShiny App</title>
+      <link>https://cemsinano.github.io/post/wine-selector-dashboard/</link>
+      <pubDate>Sat, 20 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/wine-selector-dashboard/</guid>
+      <description>Do you remember how many times you felt disappointed with your wine selection?</description>
+    </item>
+    
+    <item>
+      <title>FX Pass Through</title>
+      <link>https://cemsinano.github.io/post/fx-pass-through/</link>
+      <pubDate>Thu, 23 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/fx-pass-through/</guid>
+      <description>I will analyze to examine the myth of EM FX pass-through.</description>
+    </item>
+    
+    <item>
+      <title>Why does the US FED&#39;s Interest rate decision matter?</title>
+      <link>https://cemsinano.github.io/post/fed-interest-rate/</link>
+      <pubDate>Sun, 01 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/fed-interest-rate/</guid>
+      <description>Why does the US FED&#39;s Interest rate decision matter, and what should they do in near future?</description>
+    </item>
+    
+    <item>
+      <title>Tradeoff between False Positive and False Negatives Errors with Examples</title>
+      <link>https://cemsinano.github.io/post/hypothesis-testing/</link>
+      <pubDate>Sat, 23 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/hypothesis-testing/</guid>
+      <description>Explanation of Hypothesis Testing, Type I and Type II Errors with Examples: Let&amp;rsquo;s think you were at a bar and drinking your beer with your friends.</description>
+    </item>
+    
+  </channel>
+</rss>

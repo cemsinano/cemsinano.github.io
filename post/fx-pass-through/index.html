@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+    <title> Cem Sinan Ozturk | FX Pass Through </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.68.3" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Data Scientist &#43; Financial Engineer">
+    
+    <link rel="stylesheet" href="https://cemsinano.github.io/css/style.min.67cd718c0a3c8009c771494d381fb7128246a454bd0518fed97cb65d257db948.css" integrity="sha256-Z81xjAo8gAnHcUlNOB&#43;3EoJGpFS9BRj&#43;2Xy2XSV9uUg=" crossorigin="anonymous" type="text/css"><link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
+    <link rel="shortcut icon" href="https://cemsinano.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cemsinano.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cemsinano.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cemsinano.github.io/favicons/favicon-16x16.png">
+    <link rel="canonical" href="https://cemsinano.github.io/post/fx-pass-through/">
+    
+    
+    <script type="text/javascript" src="https://cemsinano.github.io/js/anatole-header.min.c275265a259296f3dd50e8236a77fcbcadb1dbb9597d3045c675dcc2c7c58a93.js" integrity="sha256-wnUmWiWSlvPdUOgjanf8vK2x27lZfTBFxnXcwsfFipM=" crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://cemsinano.github.io/images/"/>
+
+<meta name="twitter:title" content="FX Pass Through"/>
+<meta name="twitter:description" content="the myth of EM FX pass-through"/>
+
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="https://cemsinano.github.io/images/profile.jpg" alt="profile picture">
+        <h3 title=""><a href="/">Cem Sinan Ozturk</a></h3>
+        <div class="description">
+          <p>Data Scientist &#43; Financial Engineer</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <li>
+        <a href="https://www.linkedin.com/in/cemsinanozturk" rel="me" aria-label="Linkedin">
+          <i class="fa fa-2x fa-linkedin" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+        <li>
+        <a href="https://github.com/cemsinano" rel="me" aria-label="GitHub">
+          <i class="fa fa-2x fa-github" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+        <li>
+        <a href="mailto:cemsinanozturk@gmail.com" rel="me" aria-label="e-mail">
+          <i class="fa fa-2x fa-envelope" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; Cem Sinan Ozturk 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <ul class="nav">
+        
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+        
+        
+        <li><a  href="/post/" title="">Posts</a></li>
+        
+        
+        <li><a  href="/about/" title="">About</a></li>
+        
+    </ul>
+    <div class="themeswitcher">
+        <a class="theme-switch" title="Switch Theme">
+            <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>
+
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>FX Pass Through
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Thu, Nov 23, 2017</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">4-minute read</span>
+        </div>
+        
+        </div>
+
+    <p>I will analyze to examine <a href="http://www.ashmoregroup.com/sites/default/files/article-docs/EV%20Mar%202017.pdf">the myth of EM FX pass-through</a>. Below you can see the definition of <em>FX pass through</em> from Ashmore's Article:</p>
+
+<h2 id="background-and-theory">Background and Theory</h2>
+
+<p><em>One of the common perceptions about emerging markets (EMs) is that inflation rises sharply when currencies weaken, because weaker currencies push up domestic prices of imported goods and services. This phenomenon has a name: FX pass-through.</em></p>
+
+<p>As the previous sentence is directly quoted from the Ashmore's article linked above, the phenomenon is generally formulated with the following <a href="https://en.wikipedia.org/wiki/Exchange-rate_pass-through#cite_note-Campa_goldberg-2">regression formula</a>:</p>
+
+<p><span  class="math">\[\Delta ln(p_t) = \alpha + \sum_{i=0}^{N}\Delta e_{t-1} + \delta\Delta ln(c_t) +\psi \Delta ln(d_t) +\epsilon_t \]</span></p>
+
+<p>where</p>
+
+<ul>
+<li>p is import price,</li>
+<li>e is the exchange rate</li>
+<li>c is marginal costs</li>
+<li>d is demand</li>
+<li><span  class="math">\(\Delta\)</span> sign denotes the difference.</li>
+</ul>
+
+<p>If you are interested in the subject and want an academic level analysis of the phenomenon. <a href="http://www.bankofcanada.ca/wp-content/uploads/2015/10/dp2015-91.pdf">Here</a>, you can find this paper from Bank of Canada, examining exchange rate pass-through due to the depreciation of Canadian Dollar against US Dollar in previous years, useful.</p>
+
+<h2 id="data">Data</h2>
+
+<p>I am planning to use monthly data from 2005 to 2017 on Turkish Lira against US Dollar (USDTRY) and Consumer Price Index.</p>
+
+<p>Quandl enables us to reach these public data in CSV format.</p>
+
+<ul>
+<li><p>The Foreign Exchange Rate (USDTRY) data is from <a href="https://www.quandl.com/api/v3/datasets/BOE/XUMLBK75.csv?api_key=tPKkRzbE46iPtm71hJM8&amp;collapse=monthly">Bank of England</a> available on Quandle.</p></li>
+
+<li><p>The CPI inflation data is from <a href="https://www.quandl.com/api/v3/datasets/CBRT/TP_FG_TG01.csv?api_key=tPKkRzbE46iPtm71hJM8&amp;collapse=monthly">Central Bank of Turkish Republic</a> available on Quandle.</p></li>
+</ul>
+
+<h2 id="objectives">Objectives</h2>
+
+<ul>
+<li>Does FX rate depreciation have an effect on consumer prices?</li>
+<li>If there is an effect, what is the mean FxPassThrough value for the depreciation periods?</li>
+</ul>
+
+<h2 id="hypothesis">Hypothesis</h2>
+
+<p>I believe FX rate depreciation has a positive effect on consumer prices for the depreciation periods. I will try to see what is the level for Turkey in the period between 2005 and 2017 when Turkish Lira depreciated against US Dollars.</p>
+
+<h2 id="analysis">Analysis</h2>
+
+<p>I used tried linear regression model to see the association between foreign exchange pass through and consumer price inflation. I performed linear model in both for all periods and for only periods TRY has depreciated against USD.</p>
+
+<h3 id="running-the-analysis">Running the Analysis</h3>
+
+<p>Clone the repo and follow the instructions on <a href="https://github.com/cemsinano/FXPassThrough">FXPassThrough Project Repository</a>. This project is an automated by <strong>makefile</strong>, you can run and produce the same results by following the instructions.</p>
+
+<h3 id="exhange-rate-passthrough-in-turkey-over-time20052017">Exhange Rate Pass-through in Turkey over time(2005-2017):</h3>
+
+<p><figure><img src="/images/fx/Trend" alt="alt tag"></figure></p>
+
+<p>I will use the model below which is also used in <a href="https://www.pimco.com/handlers/displaydocument.ashx?wd=Insight&amp;id=IPTTwLZx6SCF6y4wkZDwSakLUrqhdMLIng4oyN6u0%2BzYm7UoXwKqIMiTO%2B5oXQGLO%2Fji9Ek8ekAiYIt96KRO8BM%2BltZKiu0Pgson5daY6DegSCAIFA3S4VEva2MnNz7G7vE7VcHA0h2rvKbRUhbvMzHkxSO%2B7t4MbO8FuzC6KXxVS7ZEBQjo5TYmzq6pRDIu4qB46eThoKubIj%2BQcAPHDlMQZFuspjbVnVXm6X5ROXVJV80pf7phrKzNkxomPas7c5DHakNe7RqGlSPOjRIttm%2B%2F%2FObvbCQrbCdAU%2BUfDysrgGJucp7tQ5xnsmA0twO52ToZDTppx9AVI8xYu%2FfGBQ%3D%3D">Pimco's report</a>:</p>
+
+<p><span  class="math">\[cpi_{t} = \beta_0 + \beta_{1}* FXrate_{t-1} + \beta_{2}* FXrate_{t} + \beta_{3}* FXrate_{t-1}+\epsilon\]</span></p>
+
+<p>which is our first model.</p>
+
+<p>The regression result on general data shows us the change in the exchange rate in both <code>t-1</code> and <code>t</code> do not have a significant affect on consumer price inflation. In this data, we cannot find enough evidence to believe any relationship between exchange rate and consumer price index.</p>
+
+<p>However, our hypothesis is if the exchange rate shocks have any affect on the consumer price index. Therefore we should use the following regression for the periods where <code>fx_change</code> is bigger than zero which means where Turkish Lira depreciated against US Dollars.</p>
+
+<p><span  class="math">\[cpi_{t} = \beta_0 + \beta_{1}*  + \beta_{2}* fxchange_{t} +\epsilon\]</span></p>
+
+<p><span  class="math">\[fxchange = \frac{FXrate_{t}}{FXrate_{t-1}}-1\]</span></p>
+
+<p>Here, you can see the trend for depreciation periods:</p>
+
+<p><figure><img src="/images/fx/TrendDepreciation" alt="alt tag"></figure></p>
+
+<p>This graph confirms the 0.046 at the linear model result for <code>fx_change</code> onto <code>cpi</code>. We can say <code>pass_through</code> will be around 0.5 for depreciation period which makes sense as we define pass_through as <code>cpi/fx_change</code>.</p>
+
+<p>This is the second linear model results above, and it gives a significant result for FX change. It means we have enough evidence to believe &quot;FX losses has affect on the local currency TRY&quot; to depreciate against a major currency such as USD.</p>
+
+<p>It is a very primitive analysis to see the affect of foreign exchange losses on a developing countries consumer price index. But, luckily we have a significant result to encourage us for further analyses.</p>
+
+<h2 id="future-analyses">Future Analyses</h2>
+
+<p>For the future analysis, it can be better to examine the inflation spread with the US would be better variable since we can eliminate the US inflation effect on the exchange rate.</p>
+
+<p>Another assignment would be to use a more complicated model like the one shown in the introduction.</p>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+        
+      </div>
+    </div>
+
+    
+           
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+
+
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js" integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw=" crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js" integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js" integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro=" crossorigin="anonymous"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/&#43;DiW/UqRcLbRjq" crossorigin="anonymous"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l&#43;B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd&#43;qj&#43;o24G5ZU2zJz" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script></html></body>
+
+</html>
