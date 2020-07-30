@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Data Science and Financial Engineering Blog of Cem Sinan Ozturk</title>
+    <title>Data Science Blog of Cem Sinan Ozturk</title>
     <link>https://cemsinano.github.io/</link>
-    <description>Recent content on Data Science and Financial Engineering Blog of Cem Sinan Ozturk</description>
+    <description>Recent content on Data Science Blog of Cem Sinan Ozturk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 28 Jul 2020 00:00:00 +0000</lastBuildDate>
