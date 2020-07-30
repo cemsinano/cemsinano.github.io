@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+    <title> Cem Sinan Ozturk | Wine Selector RShiny App (Part I) </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.68.3" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Data Scientist &#43; Financial Engineer">
+    
+    <link rel="stylesheet" href="https://cemsinano.github.io/css/style.min.67cd718c0a3c8009c771494d381fb7128246a454bd0518fed97cb65d257db948.css" integrity="sha256-Z81xjAo8gAnHcUlNOB&#43;3EoJGpFS9BRj&#43;2Xy2XSV9uUg=" crossorigin="anonymous" type="text/css"><link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
+    <link rel="shortcut icon" href="https://cemsinano.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cemsinano.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cemsinano.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cemsinano.github.io/favicons/favicon-16x16.png">
+    <link rel="canonical" href="https://cemsinano.github.io/post/wine-selector-dashboard-part-i/">
+    
+    
+    <script type="text/javascript" src="https://cemsinano.github.io/js/anatole-header.min.c275265a259296f3dd50e8236a77fcbcadb1dbb9597d3045c675dcc2c7c58a93.js" integrity="sha256-wnUmWiWSlvPdUOgjanf8vK2x27lZfTBFxnXcwsfFipM=" crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://cemsinano.github.io/images/"/>
+
+<meta name="twitter:title" content="Wine Selector RShiny App (Part I)"/>
+<meta name="twitter:description" content="RShiny Dashboard on Wine Selection"/>
+
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="https://cemsinano.github.io/images/profile.jpg" alt="profile picture">
+        <h3 title=""><a href="/">Cem Sinan Ozturk</a></h3>
+        <div class="description">
+          <p>Data Scientist &#43; Financial Engineer</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <li>
+        <a href="https://www.linkedin.com/in/cemsinanozturk" rel="me" aria-label="Linkedin">
+          <i class="fa fa-2x fa-linkedin" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+        <li>
+        <a href="https://github.com/cemsinano" rel="me" aria-label="GitHub">
+          <i class="fa fa-2x fa-github" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+        <li>
+        <a href="mailto:cemsinanozturk@gmail.com" rel="me" aria-label="e-mail">
+          <i class="fa fa-2x fa-envelope" aria-hidden="true"></i>
+        </a>          
+        </li>
+
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; Cem Sinan Ozturk 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <ul class="nav">
+        
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+        
+        
+        <li><a  href="/post/" title="">Posts</a></li>
+        
+        
+        <li><a  href="/about/" title="">About</a></li>
+        
+    </ul>
+    <div class="themeswitcher">
+        <a class="theme-switch" title="Switch Theme">
+            <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>
+
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Wine Selector RShiny App (Part I)
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Sat, Jan 6, 2018</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">3-minute read</span>
+        </div>
+        
+        </div>
+
+    <p>Let&rsquo;s build a R-Shiny dashboard for a tasty subject :) Wine!</p>
+<p>Can&rsquo;t you wait for reading all the story?I leave <a href="https://cemsinan.shinyapps.io/WineSelectorApp/">the dashboard link here for you :)</a></p>
+<h2 id="background">Background</h2>
+<p>Imagine you prepared a delicious dinner and you want to buy the perfect wine for your dinner. Normally, you go to the liquor store, and you have no clue what you should buy. You look at the shapes the bottles, the origin of the country, read the description, and maybe the year. You know the older the wine the better wine. But, what about the cost? You cannot afford to buy expensive wines. Yes, my app is here for you! Be happy, you will find the best option for you. You can read the reviews of the wines for your budget. If you know which type is of wine is your favourite you can summarize and find similar wines. Even more, you can also use your wine knowledge everywhere. Everyone will think what a wine expert you are!</p>
+<h2 id="planning">Planning</h2>
+<p>There will be three sections in the dashboard app and <strong>First Figure</strong> shows the first section “Figures”. User needs to select ‘Taster Name’ from checklist and also can multi-select from taster name list, ‘Price Range Selector’ from slider, type country name in ‘Country Selector’ and with autocomplete function suggestion country names will appear in the text box, select score range from ‘List of Score Range’ drop-down list and variety from ‘Variety Selector’ drop-down list. The user can add one filter or more than one filters from the left and according to user’s filters and data result will be shown in the graph in the right side. The user can modify the graph type and axes for X and Y axes from two drop-down lists.</p>
+<p><img src="/images/wine-sketches/s1.jpg" alt=""></p>
+<p><strong>Second Figure</strong> shows the second section “Ranking Table”. User needs to select ‘Taster Name’ from checklist and also can multi select from taster name list, ‘Price Range Selector’ from slider, type country name in ‘Country Selector’ and with auto complete function suggestion country names will appear in the text box, select score range from ‘List of Score Range’ drop down list and variety from ‘Variety Selector’ drop down list in order to see which wines are the best options according to the criterias user selected, wine titles will be listed in the first column (Wine Title) of the table. The user can add one filter or more than one filters from the left and according to user’s filters and data result will be shown in grid view (table) in the right side. The table contains wine title, price, score, country, variety and taster information.</p>
+<p><img src="/images/wine-sketches/s2.jpg" alt=""></p>
+<p><strong>Third Figure</strong> demonstrates the third section “Map”. It is the fact that this map section might be too ambitious, so I would like to propose this section as an optional part if time permits. I want to add map section because I want to make it user-friendlier and more visual.</p>
+<p><img src="/images/wine-sketches/s3.jpg" alt=""></p>
+<p>User needs to select a point on the map to choose the country and then add filter from left side with selecting ‘Taster Name’ from checklist and also multi selecting from taster name list, ‘Price Range Selector’ from slider, typing country name in ‘Country Selector’ and with auto-complete function suggestion country names will appear in the text box, selecting score range from ‘List of Score Range’ drop-down list and variety from ‘Variety Selector’ drop-down list. Later on, according to user’s filters, all wines of this country will be displayed in a table below the map. The table contains wine title, price, score, country, variety and taster information.</p>
+<p>That&rsquo;s enough of planing. Let&rsquo;s build the dashboard <a href="https://cemsinano.github.io/post/wine-selector-dashboard-part-ii/">on Part II.</a> You&rsquo;ll be surprised how well actual dashboard looks compare to sketches!</p>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+        
+      </div>
+    </div>
+
+    
+           
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+
+
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js" integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw=" crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js" integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cemsinano.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js" integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro=" crossorigin="anonymous"></script></html></body>
+
+</html>

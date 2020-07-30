@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Website of Cem Sinan Ozturk</title>
+    <title>Posts on Data Science and Financial Engineering Blog of Cem Sinan Ozturk</title>
     <link>https://cemsinano.github.io/post/</link>
-    <description>Recent content in Posts on Website of Cem Sinan Ozturk</description>
+    <description>Recent content in Posts on Data Science and Financial Engineering Blog of Cem Sinan Ozturk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 09 May 2018 00:00:00 +0000</lastBuildDate>
@@ -69,12 +69,21 @@ Pythia is a Python package for quick and clean Linear Regression Analysis.</desc
     </item>
     
     <item>
-      <title>Wine Selector RShiny App</title>
-      <link>https://cemsinano.github.io/post/wine-selector-dashboard/</link>
+      <title>Wine Selector RShiny App (Part II)</title>
+      <link>https://cemsinano.github.io/post/wine-selector-dashboard-part-ii/</link>
       <pubDate>Sat, 20 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cemsinano.github.io/post/wine-selector-dashboard/</guid>
-      <description>Do you remember how many times you felt disappointed with your wine selection?</description>
+      <guid>https://cemsinano.github.io/post/wine-selector-dashboard-part-ii/</guid>
+      <description>If you haven&amp;rsquo;t seen yet, you can see how I planned the dashboard on Part I.</description>
+    </item>
+    
+    <item>
+      <title>Wine Selector RShiny App (Part I)</title>
+      <link>https://cemsinano.github.io/post/wine-selector-dashboard-part-i/</link>
+      <pubDate>Sat, 06 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/wine-selector-dashboard-part-i/</guid>
+      <description>Let&amp;rsquo;s build a R-Shiny dashboard for a tasty subject :) Wine!</description>
     </item>
     
     <item>
@@ -96,7 +105,7 @@ Pythia is a Python package for quick and clean Linear Regression Analysis.</desc
     </item>
     
     <item>
-      <title>Tradeoff between False Positive and False Negatives Errors with Examples</title>
+      <title>Tradeoff between False Positive and False Negative Errors with Examples</title>
       <link>https://cemsinano.github.io/post/hypothesis-testing/</link>
       <pubDate>Sat, 23 Sep 2017 00:00:00 +0000</pubDate>
       
