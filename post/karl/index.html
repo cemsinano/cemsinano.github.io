@@ -91,15 +91,144 @@
         
         <div class="info">
           <i class="fa fa-sun-o"></i><span class="date">Sat, Mar 17, 2018</span>
-          <i class="fa fa-clock-o"></i><span class="reading-time">1-minute read</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">4-minute read</span>
         </div>
         
         </div>
 
     <p>The project repository is <a href="https://github.com/cemsinano/Karl">accessible, here.</a></p>
 
-<p>An R package for quick and clean Linear Regression Analysis.</p>
+<p>Karl is an R package for quick and clean Linear Regression Analysis. Obviously, there are many modelling tools you can perform linear regression. However, here, we build this tool for ourselves as a quick tool to perform linear regression. Here, we have three simple functions. Data scientist summarizes the data, fits the model and gets summary plots.</p>
 
+<p><strong>Collaborators:</strong></p>
+
+<ul>
+<li><a href="https://github.com/MaudBoucherit">Maud Boucherit</a><br></li>
+<li><a href="https://github.com/TedHaley">Ted Haley</a><br></li>
+</ul>
+
+<p>We also have a similar package called <a href="https://github.com/cemsinano/pythia">pythia</a> for Python users.</p>
+
+<h2 id="description">Description:</h2>
+
+<p>This package will take a dataset with a continuous reponse variable and various continous explanatory variables, and provide the user with several functions to bulid a linear regression model. The fit of the regression can be tested using the diagnosis (residual) plots returned by the plotting function.</p>
+
+<h2 id="functions">Functions:</h2>
+
+<h4 id="summary-of-data-input-x-y">Summary of Data: (input: X, y)</h4>
+
+<p>This function will return a table containing various statistics from the provided dataset. These statistics include the mean, variance, minimum, maximum and quantile (25, 50 and 75) values for continuous variables.</p>
+
+<h4 id="model-fit-input-x-y">Model Fit: (input: X, y)</h4>
+
+<p>This function will return the model object containing the coefficients for the linear model, fitted values, and residuals.</p>
+
+<h4 id="residual-plot-input-model-object">Residual Plot: (input: Model Object)</h4>
+
+<p>This function takes the linear model object as an input and returns the QQ Plot and the Residual vs. Fitted Values plot.</p>
+
+<h2 id="ecosystem">Ecosystem:</h2>
+
+<p>Our package runs similarly to functions that already exist in R and Python, however they are different in how they output the results to the user. The purpose of this package is to have an easier transition between working with Linear Models between R and Python.</p>
+
+<p>The statistics from summary of data function are returned to the user as a list of dataframes, as oppose to string that is returned by the base R summary function.</p>
+
+<p>The model fit function works similarly to the 'lm' function of the stats R package as they both return a model object containing various model parameters. The Linear Model function in included in Karl returns a list of lists including the coefficients for the linear model, fitted values, and residuals.</p>
+
+<p>The residual plot function is a method for the model class that returns two plots specific to the residual. There are functions that exist to plot both the residual-fitted plot and the QQ-plot, however the function from the Karl package combines these two plots in one function, displaying both plots in tandem.</p>
+
+<h2 id="installation">Installation:</h2>
+
+<p>To install Karl, follow these instructions:</p>
+
+<ol>
+<li>Ensure <code>devtools</code> is installed. If not, open the console and input the following: <code>install.packages(&quot;devtools&quot;)</code> to install devtools from CRAN.<br></li>
+<li>Next, to install the <code>Karl</code> package, input the following into the console: <code>devtools::install_github(&quot;UBC-MDS/Karl&quot;)</code></li>
+<li>You're ready to start using <code>Karl</code>!</li>
+</ol>
+
+<h2 id="usage">Usage:</h2>
+
+<h4 id="summary-of-data-edax-y">Summary of Data: <code>EDA(X, y)</code></h4>
+
+<p>This function will return a table containing various statistics from the provided dataset. These statistics include the mean, variance, minimum, maximum and quantile (25, 50 and 75) values for continuous variables.</p>
+
+<p>Arguments:</p>
+
+<ul>
+<li>X: a dataframe containing continuous features</li>
+<li>y: a numeric vector of same length containing the response</li>
+</ul>
+
+<p>Values: a dataframe containing</p>
+
+<ul>
+<li>mean: the mean for response (y) and features (X)</li>
+<li>variance: the variance for response (y) and features (X)</li>
+<li>quantiles: the 25-50-75 quantiles for response (y) and features (X)</li>
+<li>min: the minimum value for response (y) and features (X)</li>
+<li>max: the maximum value for response (y) and features (X)</li>
+</ul>
+
+<p>Usage:</p>
+<pre><code>library(Karl)
+EDA(X,y)</code></pre>
+<h4 id="model-fit-linearregressionx-y">Model Fit: <code>LinearRegression(X, y)</code></h4>
+
+<p>This function returns a list object containing the weights, fitted values, and residuals from fitting a linear regression  of y on X.</p>
+
+<p>Arguments:</p>
+
+<ul>
+<li>X: a dataframe containing continuous features</li>
+<li>y: a numeric vector of same length containing the response</li>
+</ul>
+
+<p>Values: a list containing</p>
+
+<ul>
+<li>weights: the estimates of the parameters of the linear regression</li>
+<li>fitted: the fitted values</li>
+<li>residuals: the residuals</li>
+</ul>
+
+<p>Usage:</p>
+<pre><code>library(Karl)
+X &lt;- iris$Sepal.Length
+y &lt;– iris$Sepal.Width
+LinearRegression(X, y)</code></pre>
+<h4 id="residual-plot-plotkarlinput-model-object">Residual Plot: <code>plot_karl((input: Model Object))</code></h4>
+
+<p>This function is used to plot the linear model object from the LinearRegression function. The linear model object is a list of lists that includes weights, fitted values, and residuals. This function will return 2 types of plots, which include:</p>
+
+<ul>
+<li>Residuals vs Fitted Plot</li>
+<li>Normal Q-Q Plot</li>
+</ul>
+
+<p>Arguments:</p>
+
+<ul>
+<li>lm object: a list of lists containing:
+
+<ul>
+<li>weights: the estimates of the parameters of the linear regression</li>
+<li>fitted: the fitted values</li>
+<li>residuals: the residuals.</li>
+</ul></li>
+</ul>
+
+<p>Value:</p>
+
+<ul>
+<li>Residuals vs Fitted Plot</li>
+<li>Normal Q-Q Plot</li>
+</ul>
+
+<p>Usage:</p>
+<pre><code>library(Karl)
+lm &lt;- LinearRegression(X, y)
+plot_karl(lm)</code></pre>
     </div>
     <div class="post-footer">
       <div class="info">

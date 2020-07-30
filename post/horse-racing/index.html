@@ -91,12 +91,675 @@
         
         <div class="info">
           <i class="fa fa-sun-o"></i><span class="date">Wed, May 9, 2018</span>
-          <i class="fa fa-clock-o"></i><span class="reading-time">1-minute read</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">13-minute read</span>
         </div>
         
         </div>
 
-    <p>The project repository is <a href="https://github.com/cemsinano/">accessible, here.</a></p>
+    <p>In this project, I am going perform a prediction analysis for the winner of horse racing.</p>
+<p>The project repository is <a href="https://github.com/cemsinano/horse-racing">accessible, here.</a></p>
+<h2 id="eda-exploratory-data-analysis-and-visualization">EDA (Exploratory Data Analysis) and Visualization</h2>
+<p>There are two datasets which are <code>Conditions3.csv</code> and <code>Results.csv</code> for previous race results. In addition to these files, I added information table about the 9th race on 2016-04-29 in <code>final_race.txt</code> from README.</p>
+<h3 id="read-datasets">Read Datasets:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Read Condition3.csv and Results3.csv files into tibble objects:</span>
+conditions <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read_csv</span>(<span style="color:#e6db74">&#34;Conditions3.csv&#34;</span>)
+results <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read_csv</span>(<span style="color:#e6db74">&#34;Results3.csv&#34;</span>)
+<span style="color:#75715e"># check if datasets are loaded correctly:</span>
+<span style="color:#a6e22e">head</span>(conditions) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th align="right">temp</th>
+<th align="left">cond</th>
+<th align="left">date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">24</td>
+<td align="left">FT</td>
+<td align="left">2015-11-23</td>
+</tr>
+<tr>
+<td align="right">26</td>
+<td align="left">FT</td>
+<td align="left">2015-11-27</td>
+</tr>
+<tr>
+<td align="right">24</td>
+<td align="left">FT</td>
+<td align="left">2015-11-30</td>
+</tr>
+<tr>
+<td align="right">27</td>
+<td align="left">FT</td>
+<td align="left">2015-12-04</td>
+</tr>
+<tr>
+<td align="right">28</td>
+<td align="left">FT</td>
+<td align="left">2015-12-07</td>
+</tr>
+<tr>
+<td align="right">33</td>
+<td align="left">FT</td>
+<td align="left">2015-12-11</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">head</span>(results) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th align="right">racenum</th>
+<th align="right">pos</th>
+<th align="right">hnum</th>
+<th align="right">odds</th>
+<th align="left">date</th>
+<th align="left">name</th>
+<th align="left">driver</th>
+<th align="left">trainer</th>
+<th align="right">seconds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">13.05</td>
+<td align="left">2015-11-23</td>
+<td align="left">Viviana</td>
+<td align="left">Harper</td>
+<td align="left">Tessa</td>
+<td align="right">117.1</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">2.60</td>
+<td align="left">2015-11-23</td>
+<td align="left">Ryder</td>
+<td align="left">Asher</td>
+<td align="left">Quincy</td>
+<td align="right">116.2</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">6.95</td>
+<td align="left">2015-11-23</td>
+<td align="left">Easton</td>
+<td align="left">Christina</td>
+<td align="left">Thomasin</td>
+<td align="right">116.5</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">0.80</td>
+<td align="left">2015-11-23</td>
+<td align="left">Simon</td>
+<td align="left">Kyle</td>
+<td align="left">Yahir</td>
+<td align="right">115.3</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">4.85</td>
+<td align="left">2015-11-23</td>
+<td align="left">Ashlee</td>
+<td align="left">Zane</td>
+<td align="left">Carol</td>
+<td align="right">117.2</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">4.00</td>
+<td align="left">2015-11-23</td>
+<td align="left">Carmen</td>
+<td align="left">Theresa</td>
+<td align="left">Brian</td>
+<td align="right">117.4</td>
+</tr>
+</tbody>
+</table>
+<p>Final race information was given in README file. I copied the table into <code>final_race.txt</code> which is read in the following code chunk.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Read the 9th race on 2016-04-29 information:</span>
+final_race <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read_table2</span>(file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;final_race.txt&#34;</span>, col_names <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;=&#34;</span>)
+final_race  <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th align="right">hnum</th>
+<th align="right">odds</th>
+<th align="left">name</th>
+<th align="left">driver</th>
+<th align="left">trainer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">1</td>
+<td align="right">34.80</td>
+<td align="left">Ramon</td>
+<td align="left">Asher</td>
+<td align="left">Moises</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">38.20</td>
+<td align="left">Jean</td>
+<td align="left">Penelope</td>
+<td align="left">Brynn</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">7.10</td>
+<td align="left">Bryson</td>
+<td align="left">Gabriella</td>
+<td align="left">Kyleigh</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">25.40</td>
+<td align="left">Gabriel</td>
+<td align="left">Estrella</td>
+<td align="left">Elena</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">4.10</td>
+<td align="left">Anthony</td>
+<td align="left">Theresa</td>
+<td align="left">Maurice</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">3.25</td>
+<td align="left">Noe</td>
+<td align="left">Beau</td>
+<td align="left">Quincy</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">16.10</td>
+<td align="left">Johnny</td>
+<td align="left">Betty</td>
+<td align="left">Carol</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="right">0.50</td>
+<td align="left">Carter</td>
+<td align="left">Kody</td>
+<td align="left">Walter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="summarize-datasets">Summarize Datasets:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">conditions <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">summary</span>() <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th></th>
+<th align="center">temp</th>
+<th align="center">cond</th>
+<th align="center">date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td align="center">Min. :-3.00</td>
+<td align="center">Length:49</td>
+<td align="center">Min. :2015-11-23</td>
+</tr>
+<tr>
+<td></td>
+<td align="center">1st Qu.: 7.00</td>
+<td align="center">Class :character</td>
+<td align="center">1st Qu.:2016-01-08</td>
+</tr>
+<tr>
+<td></td>
+<td align="center">Median :15.00</td>
+<td align="center">Mode :character</td>
+<td align="center">Median :2016-02-26</td>
+</tr>
+<tr>
+<td></td>
+<td align="center">Mean :14.82</td>
+<td align="center">NA</td>
+<td align="center">Mean :2016-02-16</td>
+</tr>
+<tr>
+<td></td>
+<td align="center">3rd Qu.:24.00</td>
+<td align="center">NA</td>
+<td align="center">3rd Qu.:2016-03-25</td>
+</tr>
+<tr>
+<td></td>
+<td align="center">Max. :33.00</td>
+<td align="center">NA</td>
+<td align="center">Max. :2016-04-29</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># unique values for track conditions:</span>
+<span style="color:#a6e22e">unique</span>(conditions<span style="color:#f92672">$</span>cond)
+</code></pre></div><pre><code>## [1] &quot;FT&quot; &quot;SY&quot; &quot;GD&quot; &quot;SN&quot;
+</code></pre>
+<p>Conditions dataframe has 49 entries with <code>temp</code> (temperature) values ranging from -3 to 33 C, and <code>date</code> variable from &ldquo;2015-11-23&rdquo; to &ldquo;2016-04-29&rdquo; which is the date for final race to be predicted. Also <code>cond</code> (track condition) variable has four different conditions which are &ldquo;FT&rdquo;(fast), &ldquo;SY&rdquo;(sloppy), &ldquo;GD&rdquo;(good), and &ldquo;SN&rdquo;(snowy).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">results <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">summary</span>()
+</code></pre></div><pre><code>##     racenum           pos            hnum             odds      
+##  Min.   : 1.00   Min.   :1.00   Min.   : 1.000   Min.   : 0.05  
+##  1st Qu.: 3.00   1st Qu.:2.00   1st Qu.: 2.000   1st Qu.: 3.05  
+##  Median : 6.00   Median :4.00   Median : 4.000   Median : 7.65  
+##  Mean   : 6.19   Mean   :4.22   Mean   : 4.402   Mean   :13.20  
+##  3rd Qu.: 9.00   3rd Qu.:6.00   3rd Qu.: 6.000   3rd Qu.:18.05  
+##  Max.   :13.00   Max.   :9.00   Max.   :10.000   Max.   :97.60  
+##       date                name              driver         
+##  Min.   :2015-11-23   Length:3351        Length:3351       
+##  1st Qu.:2015-12-28   Class :character   Class :character  
+##  Median :2016-02-15   Mode  :character   Mode  :character  
+##  Mean   :2016-02-12                                        
+##  3rd Qu.:2016-03-25                                        
+##  Max.   :2016-04-29                                        
+##    trainer             seconds     
+##  Length:3351        Min.   :112.1  
+##  Class :character   1st Qu.:117.0  
+##  Mode  :character   Median :119.1  
+##                     Mean   :119.5  
+##                     3rd Qu.:121.2  
+##                     Max.   :152.5
+</code></pre>
+<p>Results dataframe has 3351 entries with 9 variables which are <code>racenum</code> (number of the race in the day), <code>pos</code>(finishing position), <code>hnum</code> (horse number), <code>odds</code>(odds for the horse), <code>date</code>, <code>seconds</code>(the time to finish the race), <code>name</code> (name of the horse), <code>driver</code>(name of the driver), <code>trainer</code>(name of the trainer).</p>
+<h3 id="check-missing-values">Check Missing Values:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># check if there are any na values in both datasets:</span>
+<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">is.na</span>(conditions))
+</code></pre></div><pre><code>## [1] 0
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">is.na</span>(results))
+</code></pre></div><pre><code>## [1] 0
+</code></pre>
+<p>We do not have any missing values for the datasets.</p>
+<h3 id="multiple-conditions-per-day">Multiple Conditions per Day:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># check if we have multiple cond and temp entries for a single day:</span>
+multiple_cond <span style="color:#f92672">&lt;-</span> conditions <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">group_by</span>(date) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">summarise</span>(date_count <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>()) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(date_count<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Check out the dates with multiple cond and/or temp entries:</span>
+multiple_cond <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th align="left">date</th>
+<th align="right">date_count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">2016-02-12</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">2016-03-07</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">2016-03-11</td>
+<td align="right">3</td>
+</tr>
+<tr>
+<td align="left">2016-03-21</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">2016-03-25</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">2016-04-29</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+<p>We have six dates with multiple track condition and/or temperature values for a single day. I visualize it to get a better sense of it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">conditions <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(date <span style="color:#f92672">%in%</span> multiple_cond<span style="color:#f92672">$</span>date) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_point</span>(<span style="color:#a6e22e">aes</span>(date, temp, color <span style="color:#f92672">=</span> cond), alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Dates with Multiple Temprature or Track Conditions&#34;</span>)
+</code></pre></div><p><img src="/images/horse-racing/unnamed-chunk-8-1.png" alt=""></p>
+<p>Dropping is not the best way but it the fastest way to deal with the multiple entries. However, if I had more time, I could have tried to explore this multiple entry cases.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># drop &#34;2016-04-29&#34; since it is the day for our final race:</span>
+multiple_cond <span style="color:#f92672">&lt;-</span> multiple_cond <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(date <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;2016-04-29&#34;</span>)
+<span style="color:#75715e"># drop other multiple_cond dates from conditions:</span>
+conditions <span style="color:#f92672">&lt;-</span> conditions <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(<span style="color:#f92672">!</span>(date <span style="color:#f92672">%in%</span> multiple_cond<span style="color:#f92672">$</span>date))
+<span style="color:#75715e"># It is a jugdement call! Keep cond for this date as &#34;SN&#34;:</span>
+conditions<span style="color:#f92672">$</span>cond[conditions<span style="color:#f92672">$</span>date <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;2016-04-29&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;SN&#34;</span>
+</code></pre></div><p>As we have the latest race in this day I will keep the condition for this day as <em>&ldquo;SN&rdquo;(snowy)</em> not <em>&ldquo;FT&rdquo;(fast)</em>. If it starts snowing during the day track will be affected by the snow.</p>
+<h3 id="join-datasets">Join Datasets:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Join conditions data into results</span>
+dat <span style="color:#f92672">&lt;-</span> dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">left_join</span>(results, conditions, by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;date&#34;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Glimpse joined data:</span>
+dat <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">glimpse</span>()
+</code></pre></div><pre><code>## Observations: 3,411
+## Variables: 11
+## $ racenum &lt;int&gt; 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, ...
+## $ pos     &lt;int&gt; 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, ...
+## $ hnum    &lt;int&gt; 2, 6, 4, 5, 1, 3, 3, 7, 2, 4, 5, 6, 1, 4, 7, 1, 2, 8, ...
+## $ odds    &lt;dbl&gt; 13.05, 2.60, 6.95, 0.80, 4.85, 4.00, 12.00, 4.40, 24.8...
+## $ date    &lt;date&gt; 2015-11-23, 2015-11-23, 2015-11-23, 2015-11-23, 2015-...
+## $ name    &lt;chr&gt; &quot;Viviana&quot;, &quot;Ryder&quot;, &quot;Easton&quot;, &quot;Simon&quot;, &quot;Ashlee&quot;, &quot;Carm...
+## $ driver  &lt;chr&gt; &quot;Harper&quot;, &quot;Asher&quot;, &quot;Christina&quot;, &quot;Kyle&quot;, &quot;Zane&quot;, &quot;There...
+## $ trainer &lt;chr&gt; &quot;Tessa&quot;, &quot;Quincy&quot;, &quot;Thomasin&quot;, &quot;Yahir&quot;, &quot;Carol&quot;, &quot;Bria...
+## $ seconds &lt;dbl&gt; 117.1, 116.2, 116.5, 115.3, 117.2, 117.4, 116.4, 117.3...
+## $ temp    &lt;int&gt; 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24...
+## $ cond    &lt;chr&gt; &quot;FT&quot;, &quot;FT&quot;, &quot;FT&quot;, &quot;FT&quot;, &quot;FT&quot;, &quot;FT&quot;, &quot;FT&quot;, &quot;FT&quot;, &quot;FT&quot;, ...
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># check if there are any missing values after left_join:</span>
+<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">is.na</span>(dat))
+</code></pre></div><pre><code>## [1] 952
+</code></pre>
+<p>We can see that there are missing values after I join <code>conditions</code> and <code>results</code> dataframes. It was what I expected since I had dropped some rows from <code>conditions</code> due to mutliple condition per day.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Visualise the missing values:</span>
+<span style="color:#a6e22e">missmap</span>(dat,
+ main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Missingness Map of Dataset after Join&#34;</span>,
+ y.labels <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>,
+ y.at <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>)
+</code></pre></div><p><img src="/images/horse-racing/unnamed-chunk-13-1.png" alt=""></p>
+<p>First, I drop the days that I dropped due to multiple conditions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dat <span style="color:#f92672">&lt;-</span> dat <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(<span style="color:#f92672">!</span>(date <span style="color:#f92672">%in%</span> multiple_cond<span style="color:#f92672">$</span>date))
+</code></pre></div><h3 id="missing-value-check-after-join">Missing Value Check After Join:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Find out values around &#34;2016-02-01&#34;:</span>
+dat <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">is.na</span>(cond) <span style="color:#f92672">==</span> T) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">select</span>(date,cond,temp) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">unique</span>() <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th align="left">date</th>
+<th align="left">cond</th>
+<th align="right">temp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">2016-02-01</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+<p>As we can see, we only have missing values on &ldquo;2016-02-01&rdquo; after I drop the days for multiple entries. We could have dropped this one too but as it is only one date we may interpolate by looking at the other dates around this date. Below, I summarize 15 days before and after &ldquo;2016-02-01&rdquo;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Find out the date of Missing Value:</span>
+dat <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(date <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#34;2016-01-16&#34;</span> <span style="color:#f92672">&amp;</span> date <span style="color:#f92672">&lt;</span><span style="color:#e6db74">&#34;2016-02-16&#34;</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(date,cond,temp) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">unique</span>()
+</code></pre></div><pre><code>## # A tibble: 7 x 3
+##   date       cond   temp
+##   &lt;date&gt;     &lt;chr&gt; &lt;int&gt;
+## 1 2016-01-18 FT       28
+## 2 2016-01-22 FT       22
+## 3 2016-01-25 FT       25
+## 4 2016-01-29 FT       26
+## 5 2016-02-01 &lt;NA&gt;     NA
+## 6 2016-02-08 FT       21
+## 7 2016-02-15 FT       13
+</code></pre>
+<p>We can see that there is a decreasing fashion in the temperature and if we interpolate values around this date, we may use 24 as an estimate for <code>temp</code> to fill NA. For condition variable, track condition is &ldquo;FT&rdquo; (fast) from &ldquo;2016-01-18&rdquo; to &ldquo;2016-02-15&rdquo; so I will impute <code>cond</code> variable as &ldquo;FT&rdquo;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Fill missing values for &#34;2016-02-01&#34;:</span>
+dat<span style="color:#f92672">$</span>cond[dat<span style="color:#f92672">$</span>date <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;2016-02-01&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;FT&#34;</span>
+dat<span style="color:#f92672">$</span>temp[dat<span style="color:#f92672">$</span>date <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;2016-02-01&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">24</span>
+</code></pre></div><h2 id="visualize-data">Visualize Data:</h2>
+<p>First of all, I will use <code>ggpairs</code> to get quick multiple visualizations. It is not the best-looking visualization but it is pretty efficient for a short amount of time.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Function to pass into (to get a linear line and smaller points as default is not printing legible results)</span>
+g_fun <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, mapping, <span style="color:#66d9ef">...</span>){
+  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(data <span style="color:#f92672">=</span> data, mapping <span style="color:#f92672">=</span> mapping) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">geom_point</span>(size <span style="color:#f92672">=</span><span style="color:#ae81ff">0.25</span>) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">geom_smooth</span>(method<span style="color:#f92672">=</span>lm, fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#66d9ef">...</span>)
+  p
+}
+<span style="color:#75715e"># Get ggpairs plots for &#34;odds&#34;, &#34;cond&#34;, &#34;temp&#34;,&#34;seconds&#34;, &#34;racenum&#34;,&#34;hnum&#34;, &#34;pos&#34; variables:</span>
+g <span style="color:#f92672">&lt;-</span>  <span style="color:#a6e22e">suppressMessages</span>(<span style="color:#a6e22e">ggpairs</span>(dat,
+              columns <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;odds&#34;</span>, <span style="color:#e6db74">&#34;cond&#34;</span>, <span style="color:#e6db74">&#34;temp&#34;</span>,<span style="color:#e6db74">&#34;seconds&#34;</span>, <span style="color:#e6db74">&#34;racenum&#34;</span>,<span style="color:#e6db74">&#34;hnum&#34;</span>),
+              lower <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(continuous <span style="color:#f92672">=</span>  <span style="color:#a6e22e">wrap</span>(g_fun, binwidth <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.5</span>)))) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme_bw</span>())
+
+<span style="color:#a6e22e">suppressMessages</span>(<span style="color:#a6e22e">print</span>(g)) <span style="color:#75715e"># to get rid of message used suppressMessages(print(...))</span>
+</code></pre></div><p><img src="/images/horse-racing/unnamed-chunk-18-1.png" alt=""></p>
+<p>Although we do not have all numerical variables, the correlation may still be useful to have an idea. As we can see from <code>ggpair</code> plot, we do not have a high level of correlation, multicollinearity is not our primary concern.</p>
+<p>Above, we can see <code>seconds</code> and <code>cond</code> would be interesting to plot to explore. There is obviously a race number which has higher time values.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dat <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_point</span>(<span style="color:#a6e22e">aes</span>(date,
+                 seconds,
+                 color <span style="color:#f92672">=</span> racenum))<span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">xlab</span>(<span style="color:#e6db74">&#34;Date&#34;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">xlab</span>(<span style="color:#e6db74">&#34;Date&#34;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;Date vs Race Duration&#34;</span>)
+</code></pre></div><p><img src="/images/horse-racing/unnamed-chunk-19-1.png" alt=""></p>
+<p>We can see more clearly that there is a <code>racenum</code> which has longer race duration. We may exclude it since it seems like it is a different type of race.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dat <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(seconds <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">140</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(racenum) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">unique</span>() <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th align="right">racenum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># drop racenum 4:</span>
+dat <span style="color:#f92672">&lt;-</span> dat <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(racenum <span style="color:#f92672">!=</span> <span style="color:#ae81ff">4</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">final_race[<span style="color:#e6db74">&#34;cond&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unique</span>(dat<span style="color:#f92672">$</span>cond[dat<span style="color:#f92672">$</span>date<span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;2016-04-29&#34;</span>])
+final_race[<span style="color:#e6db74">&#34;temp&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unique</span>(dat<span style="color:#f92672">$</span>temp[dat<span style="color:#f92672">$</span>date<span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;2016-04-29&#34;</span>])
+final_race[<span style="color:#e6db74">&#34;date&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;2016-04-29&#34;</span>
+</code></pre></div><p>I will also drop the rows which have all different horse, driver, and trainer from the final race which will leave us only related <code>trainer</code>, <code>name</code>, and <code>driver</code> variables. If we have neither of them, it will provide any extra information for our race.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dat <span style="color:#f92672">&lt;-</span> dat <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(driver <span style="color:#f92672">%in%</span> final_race<span style="color:#f92672">$</span>driver <span style="color:#f92672">|</span>
+           name <span style="color:#f92672">%in%</span> final_race<span style="color:#f92672">$</span>name <span style="color:#f92672">|</span>
+           trainer <span style="color:#f92672">%in%</span> final_race<span style="color:#f92672">$</span>trainer)
+<span style="color:#a6e22e">print</span>(<span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#34;Number of rows for the final subset data is&#34;</span>, <span style="color:#a6e22e">nrow</span>(dat)))
+</code></pre></div><pre><code>## [1] &quot;Number of rows for the final subset data is 1533&quot;
+</code></pre>
+<h2 id="fit-a-model">Fit a Model</h2>
+<h3 id="logistic-regression">Logistic Regression</h3>
+<p>The first simple model would be fitting a logistic regression. For a logistic regression, we need a binary response variable so I create <code>winner</code> variable. Then, we can classify each entry as <code>winner</code> or not based the <code>pos</code> variable. I tried <code>glm</code> version for the Logistic Regression but it did not give me converging results so I will use <code>nnet</code> package for logistic regression and multinomial logistic regression. Since I use <code>winner</code> binary variable as the response variable. It will fit the binary case of multinomial logistic regression which is the logistic regression.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># create the winner variable:</span>
+dat <span style="color:#f92672">&lt;-</span> dat <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(winner <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(pos <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> , <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>))
+</code></pre></div><p>I use horse number, horse name, driver, trainer, track condition, temperature and date as explanatory variables. If I had more time, I can do more detailed significance analysis for each explanatory variable, and multicollinearity between variables.</p>
+<h3 id="split-data-into-train-and-test">Split Data into Train and Test:</h3>
+<p>As splitting train and test into with multiple factors is a challenge. I decided to fit split data into train and test in Python and fit <code>LogisticRegression</code> models with <code>sklearn</code> into train and test data to calculate accuracy scores.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Write subset data into feather to read in Python:  </span>
+path <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;sub_data.feather&#34;</span>
+<span style="color:#a6e22e">write_feather</span>(dat, path)
+</code></pre></div><p>To access Python notebook file: <a href="https://github.com/cemsinano/horse-racing/blob/master/src/model_fit.ipynb">model_fit.ipynb</a> for the code. I also saved this notebook as an markdown file which can be found, <a href="https://github.com/cemsinano/horse-racing/blob/master/report/model_fit.md">here</a></p>
+<h3 id="train-and-test-accuracy-score-from-sklearn-logistic-regression-implementation">Train and Test Accuracy Score from <code>sklearn</code> Logistic Regression Implementation:</h3>
+<pre><code>&gt; Logistic Regression training error: 0.185971
+&gt; Logistic Regression test error: 0.156352
+</code></pre>
+<p>It predicts all the horses as &ldquo;not winner&rdquo; in <code>sklearn</code> implementation. However, we may still make use of the probabilities for each horse being a winner or not.</p>
+<h3 id="multinom-logistic-regression-implementation"><code>multinom</code> Logistic Regression Implementation</h3>
+<p>We can try to fit and predict <code>multinom</code> function as it does give us the probability of <code>winner</code> variable. We can directly use these probabilities without making hard assignments.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Run the Logistic model:</span>
+<span style="color:#75715e"># `multinom` function for logistic regression for binary response:</span>
+log_model <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">multinom</span>(winner <span style="color:#f92672">~</span> <span style="color:#a6e22e">as.factor</span>(hnum) <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> driver <span style="color:#f92672">+</span>
+                      trainer <span style="color:#f92672">+</span> cond <span style="color:#f92672">+</span> temp <span style="color:#f92672">+</span> <span style="color:#a6e22e">as.factor</span>(date),
+                      data<span style="color:#f92672">=</span>dat, trace <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+<span style="color:#75715e"># summary(log_model) # as there are too many levels it is not feasible to print</span>
+
+pred_probs <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(log_model,final_race,<span style="color:#e6db74">&#34;probs&#34;</span>)
+final_probs <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data_frame</span>(name <span style="color:#f92672">=</span> final_race<span style="color:#f92672">$</span>name, pred_probs, odds <span style="color:#f92672">=</span> final_race<span style="color:#f92672">$</span>odds)
+
+<span style="color:#75715e"># Normalize probabilities of each horse to be winner or not to make total probality 1:</span>
+final_probs <span style="color:#f92672">&lt;-</span>final_probs <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(pred_probs <span style="color:#f92672">=</span> pred_probs<span style="color:#f92672">/</span><span style="color:#a6e22e">sum</span>(pred_probs))
+final_probs <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(expected_return <span style="color:#f92672">=</span> pred_probs<span style="color:#f92672">*</span>odds<span style="color:#ae81ff">-1</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="right">pred_probs</th>
+<th align="right">odds</th>
+<th align="right">expected_return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Ramon</td>
+<td align="right">0.0470390</td>
+<td align="right">34.80</td>
+<td align="right">0.6369568</td>
+</tr>
+<tr>
+<td align="left">Jean</td>
+<td align="right">0.0000000</td>
+<td align="right">38.20</td>
+<td align="right">-1.0000000</td>
+</tr>
+<tr>
+<td align="left">Bryson</td>
+<td align="right">0.2051729</td>
+<td align="right">7.10</td>
+<td align="right">0.4567276</td>
+</tr>
+<tr>
+<td align="left">Gabriel</td>
+<td align="right">0.0000000</td>
+<td align="right">25.40</td>
+<td align="right">-1.0000000</td>
+</tr>
+<tr>
+<td align="left">Anthony</td>
+<td align="right">0.1215949</td>
+<td align="right">4.10</td>
+<td align="right">-0.5014607</td>
+</tr>
+<tr>
+<td align="left">Noe</td>
+<td align="right">0.2125975</td>
+<td align="right">3.25</td>
+<td align="right">-0.3090583</td>
+</tr>
+<tr>
+<td align="left">Johnny</td>
+<td align="right">0.0000000</td>
+<td align="right">16.10</td>
+<td align="right">-1.0000000</td>
+</tr>
+<tr>
+<td align="left">Carter</td>
+<td align="right">0.4135957</td>
+<td align="right">0.50</td>
+<td align="right">-0.7932021</td>
+</tr>
+</tbody>
+</table>
+<p>As we can see from the table above, according to logistic regression, only Ramon and Bryson are the ones has positive returns. Based on this simple model, I would bet on these horses.</p>
+<h3 id="multinomial-logistic-regression">Multinomial Logistic Regression</h3>
+<p>I will use <code>pos</code> (position) variable to fit multinomial logistic regression.</p>
+<h3 id="train-and-test-accuracy-score-from-sklearn-logistic-regression-implementation-1">Train and Test Accuracy Score from <code>sklearn</code> Logistic Regression Implementation:</h3>
+<pre><code>&gt; Multinomial Logistic Regression training error: 0.798695
+&gt; Multinomial Logistic Regression test error: 0.843478
+</code></pre>
+<p>We see logistic regression test error is 0.15 while multinomial logistic regression test is 0.84 which does not mean logistic regression is better than multinomial logistic regression. We get high accuracy score since the mode of the <code>winner</code> variable is zero and model is predicting every horse as not winner.</p>
+<h3 id="multinom-multinomial-logistic-regression-implementation"><code>multinom</code> Multinomial Logistic Regression Implementation</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Run the Multinomial model:</span>
+<span style="color:#75715e"># `multinom` function for logistic regression for binary response:</span>
+multinom_model <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">multinom</span>(pos<span style="color:#f92672">~</span><span style="color:#a6e22e">as.factor</span>(hnum)<span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> driver <span style="color:#f92672">+</span>
+                           trainer <span style="color:#f92672">+</span> cond <span style="color:#f92672">+</span> temp <span style="color:#f92672">+</span> <span style="color:#a6e22e">as.factor</span>(date),
+                           data<span style="color:#f92672">=</span>dat, MaxNWts <span style="color:#f92672">=</span> <span style="color:#ae81ff">7000</span>, trace <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+<span style="color:#75715e"># Probabilities of positions:</span>
+pred_probs_mul <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(multinom_model,final_race,<span style="color:#e6db74">&#34;probs&#34;</span>)
+<span style="color:#75715e"># Probabilities of being the winner for all horses can be extracted from: pred_probs_mul[,1]</span>
+
+<span style="color:#75715e"># create a dataframe to summarize final probabilities:</span>
+final_probs_multi <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data_frame</span>(name <span style="color:#f92672">=</span> final_race<span style="color:#f92672">$</span>name, pred_probs <span style="color:#f92672">=</span> pred_probs_mul[,<span style="color:#ae81ff">1</span>],
+                                odds <span style="color:#f92672">=</span> final_race<span style="color:#f92672">$</span>odds)
+<span style="color:#75715e"># Normalize winning probabilities:</span>
+final_probs_multi <span style="color:#f92672">&lt;-</span> final_probs_multi <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(pred_probs <span style="color:#f92672">=</span> pred_probs<span style="color:#f92672">/</span><span style="color:#a6e22e">sum</span>(pred_probs))
+<span style="color:#75715e"># summary table with expected return for Softmax Model:</span>
+final_probs_multi <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">mutate</span>(expected_return <span style="color:#f92672">=</span> pred_probs<span style="color:#f92672">*</span>odds<span style="color:#ae81ff">-1</span>) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">kable</span>()
+</code></pre></div><table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="right">pred_probs</th>
+<th align="right">odds</th>
+<th align="right">expected_return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Ramon</td>
+<td align="right">0.0326654</td>
+<td align="right">34.80</td>
+<td align="right">0.1367550</td>
+</tr>
+<tr>
+<td align="left">Jean</td>
+<td align="right">0.0000000</td>
+<td align="right">38.20</td>
+<td align="right">-0.9999998</td>
+</tr>
+<tr>
+<td align="left">Bryson</td>
+<td align="right">0.2990363</td>
+<td align="right">7.10</td>
+<td align="right">1.1231575</td>
+</tr>
+<tr>
+<td align="left">Gabriel</td>
+<td align="right">0.0740237</td>
+<td align="right">25.40</td>
+<td align="right">0.8802016</td>
+</tr>
+<tr>
+<td align="left">Anthony</td>
+<td align="right">0.0508982</td>
+<td align="right">4.10</td>
+<td align="right">-0.7913174</td>
+</tr>
+<tr>
+<td align="left">Noe</td>
+<td align="right">0.2653215</td>
+<td align="right">3.25</td>
+<td align="right">-0.1377052</td>
+</tr>
+<tr>
+<td align="left">Johnny</td>
+<td align="right">0.0000000</td>
+<td align="right">16.10</td>
+<td align="right">-0.9999998</td>
+</tr>
+<tr>
+<td align="left">Carter</td>
+<td align="right">0.2780550</td>
+<td align="right">0.50</td>
+<td align="right">-0.8609725</td>
+</tr>
+</tbody>
+</table>
+<p>According to multinomial logistic regression, only Ramon, Bryson and Gabriel are the ones has positive returns but Bryson has the most positive expected return. Based on this model, I would bet on these three horses with high weights on Bryson and Gabriel.</p>
+<h2 id="further-improvements">Further Improvements</h2>
+<p>First of all, it is better to find a way to make use of the I drop due to the conflicting entries in <code>conditions</code> dataset. For example, it may be a good idea to find another hourly whether source to incorporate with the data we have and get more granular conditions by matching the time of <code>racenum</code> for each day.</p>
+<p>Secondly, I use logistic regression to find horses to be <code>winner</code> or not, and I scaled these probabilities to get total probability as 1. It is a simple approach and it needs improvements as we can see from the results above. Then, I extended into softmax regression by using <code>pos</code>(position) variable as a response. This one also did not have high prediction power in our implementation.</p>
+<p>I have used <code>ggpair</code> to maximize my speed. However, standard <code>ggplot</code> for all the variables would be more efficient and informative. Moreover, a Shiny Dashboard can be built to make interactive visualizations and better insights for horse betting.</p>
+<p>Also, other types of predictive classification models can be performed such as random forest, Multi-class Support Vector Machine (SVM), multilayer neural networks and so on. Random forest will probably produce an overfitted model, and I would be hard to interpret multi-layer neural networks. Softmax is considered as a single neural network but it is still interpretable since it is a single layer model. Naive Bayes is another way to tackle with classification problem. It constructs &ldquo;probability&rdquo; of a class happening based Bayes rule, but it assumes features to be conditionally independent.</p>
+<p>Last but not least, making the analysis reproducible by automating some processes would be beneficial for future similar works.</p>
 
     </div>
     <div class="post-footer">

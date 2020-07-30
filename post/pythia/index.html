@@ -91,15 +91,212 @@
         
         <div class="info">
           <i class="fa fa-sun-o"></i><span class="date">Sat, Mar 17, 2018</span>
-          <i class="fa fa-clock-o"></i><span class="reading-time">1-minute read</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">4-minute read</span>
         </div>
         
         </div>
 
     <p>The project repository is <a href="https://github.com/cemsinano/pythia">accessible, here.</a></p>
 
-<p>A Python package for quick and clean Linear Regression Analysis.</p>
+<p>Pythia is a Python package for quick and clean Linear Regression Analysis. Obviously, there are many modelling tools you can perform linear regression. However, here, we build this tool for ourselves as a quick tool to perform linear regression. Here, we have three simple functions. Data scientist summarizes the data, fits the model and gets summary plots.</p>
 
+<p>We have a similar package called <a href="https://github.com/cemsinano/Karl">Karl</a> for R users.</p>
+
+<p><strong>Collaborators:</strong></p>
+
+<ul>
+<li><a href="https://github.com/MaudBoucherit">Maud Boucherit</a><br></li>
+<li><a href="https://github.com/TedHaley">Ted Haley</a><br></li>
+</ul>
+
+<h2 id="description">Description:</h2>
+
+<p>This package will take a dataset with a continuous response variable and various explanatory variables (either continuous, discrete, or categorical), and provide the user with several functions to build a linear regression model.</p>
+
+<h2 id="functions">Functions:</h2>
+
+<h4 id="summary-of-data-input-x-y">Summary of Data: (input: X, y)</h4>
+
+<p>This function will return a table containing various statistics from the provided dataset. These statistics include the mean, variance, minimum, maximum and quantile (25, 50 and 75) values for continuous variables.</p>
+
+<h4 id="model-fit-input-x-y">Model Fit: (input: X, y)</h4>
+
+<p>This function will return the model object containing the coefficients for the linear model, corresponding p-value, and confidence interval.</p>
+
+<h4 id="residual-plot-input-model-object">Residual Plot: (input: Model Object)</h4>
+
+<p>This function takes the calculated residuals from the model object and will display both the residuals by fitted values, and the QQ plot for the residuals.</p>
+
+<h2 id="ecosystem">Ecosystem:</h2>
+
+<p>Our package runs similarly to the Scikit Learn LinearRegression class that already exist in Python.</p>
+
+<p>The statistics summary from the Pythia package is similar to the pandas describe function. The Pythia summary statistics function will return a pandas dataframe containing all relevant statistics dependening on the variable type (continuous, discrete, or categorical).</p>
+
+<p>The model fit function works similarly to LinearRegression.fit function from the Scikit Learn package. Both functions return a model object, and the coefficients can be extracted from the model object.</p>
+
+<p>The residual plot function is a method for the model class that returns two plots specific to the residual. There are functions that exist to plot both the residual-fitted plot and the QQ-plot, however the function from the Karl package combines these two plots in one function, displaying both plots in tandem.</p>
+
+<h2 id="installation">Installation:</h2>
+
+<p>To install Pythia, follow these instructions:</p>
+
+<ol>
+<li>Input the following into the Terminal: <code>pip install git+https://github.com/UBC-MDS/Pythia.git</code><br></li>
+<li>You're ready to start using <code>Pythia</code>!</li>
+</ol>
+
+<h2 id="usage">Usage:</h2>
+
+<h4 id="summary-of-data-edax-y">Summary of Data: <code>EDA(X, y)</code></h4>
+
+<p>This function will return a table containing various statistics from the provided dataset. These statistics include the mean, variance, minimum, maximum and quantile (25, 50 and 75) values for continuous variables.</p>
+
+<p>Arguments:</p>
+
+<ul>
+<li>X: a pandas.dataframe containing continuous variables</li>
+<li>y: a pandas.Series of same length containing the response</li>
+</ul>
+
+<p>Values: a dataframe containing</p>
+
+<ul>
+<li>mean: the mean for response (y) and features (X)</li>
+<li>variance: the variance for response (y) and features (X)</li>
+<li>quantiles: the 25-50-75 quantiles for response (y) and features (X)</li>
+<li>min: the minimum value for response (y) and features (X)</li>
+<li>max: the maximum value for response (y) and features (X)</li>
+</ul>
+
+<p>Usage:</p>
+<pre><code>from pythia.eda import eda
+X = pd.DataFrame({&#39;ones&#39;: np.ones(10),
+                  &#39;X1&#39;: rand.normal(size=10),
+                  &#39;X2&#39;: rand.normal(size=10),
+                  &#39;X3&#39;: rand.normal(size=10)})
+y = pd.DataFrame({X.X1 + X.X2 + X.X3 + rand.normal(size=10)})
+EDA(X,y)</code></pre>
+<p>Expected Output:</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>mean</th>
+<th>variance</th>
+<th>min</th>
+<th>quantile25</th>
+<th>quantile50</th>
+<th>quantile75</th>
+<th>max</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>y</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+
+<tr>
+<td>X1</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+
+<tr>
+<td>X2</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+
+<tr>
+<td>X3</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="model-fit-linearregressionx-y">Model Fit: <code>LinearRegression(X, y)</code></h4>
+
+<p>This function returns a method object containing the weights, fitted values, and residuals from fitting a linear regression of y on X.</p>
+
+<p>Arguments:</p>
+
+<ul>
+<li>X: a pandas.dataframe containing continuous variables</li>
+<li>y: a pandas.Series of same length containing the response</li>
+</ul>
+
+<p>Values: a class method containing:</p>
+
+<ul>
+<li>weights: a pandas.Series, the estimated coefficients</li>
+<li>fitted: a pandas.Series, the fitted values</li>
+<li>residuals: a pandas.Series, the residuals</li>
+</ul>
+
+<p>Usage:</p>
+<pre><code>from pythia.LinearRegression import LinearRegression
+X = pd.DataFrame({&#39;X1&#39;: np.random.normal(size=10),
+                  &#39;X2&#39;: np.random.normal(size=10),
+                  &#39;X3&#39;: np.random.normal(size=10)})
+y = X.X1 + X.X2 + X.X3 + np.random.normal(size=10)
+LinearRegression(X, y)</code></pre>
+<h4 id="residual-plot-plotresidualsinput-model-object">Residual Plot: <code>plot_residuals((input: Model Object))</code></h4>
+
+<p>This function is used to plot the linear model object from the LinearRegression class. The linear model object is a method that includes weights, fitted values, and residuals. This function will return 2 types of plots, which include:</p>
+
+<ul>
+<li>Residuals vs Fitted Plot</li>
+<li>Normal Q-Q Plot</li>
+</ul>
+
+<p>Arguments:</p>
+
+<ul>
+<li>lm object: a list of lists containing:
+
+<ul>
+<li>fitted: the fitted values</li>
+<li>residuals: the residuals.</li>
+</ul></li>
+</ul>
+
+<p>Value:</p>
+
+<ul>
+<li>Residuals vs Fitted Plot</li>
+<li>Normal Q-Q Plot</li>
+</ul>
+
+<p>Usage:</p>
+<pre><code>from pythia.LinearRegression import LinearRegression
+lm = LinearRegression.plot_residuals(X, y)
+plot_residuals(lm)</code></pre>
     </div>
     <div class="post-footer">
       <div class="info">

@@ -26,7 +26,7 @@
       <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://cemsinano.github.io/post/horse-racing/</guid>
-      <description>The project repository is accessible, here.</description>
+      <description>In this project, I am going perform a prediction analysis for the winner of horse racing.</description>
     </item>
     
     <item>
@@ -55,7 +55,7 @@ The project repository is accessible, here.</description>
       
       <guid>https://cemsinano.github.io/post/karl/</guid>
       <description>The project repository is accessible, here.
-An R package for quick and clean Linear Regression Analysis.</description>
+Karl is an R package for quick and clean Linear Regression Analysis.</description>
     </item>
     
     <item>
@@ -65,7 +65,7 @@ An R package for quick and clean Linear Regression Analysis.</description>
       
       <guid>https://cemsinano.github.io/post/pythia/</guid>
       <description>The project repository is accessible, here.
-A Python package for quick and clean Linear Regression Analysis.</description>
+Pythia is a Python package for quick and clean Linear Regression Analysis.</description>
     </item>
     
     <item>
@@ -74,7 +74,7 @@ A Python package for quick and clean Linear Regression Analysis.</description>
       <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>https://cemsinano.github.io/post/forest-fire-feature-selection/</guid>
-      <description>Response Variable and Predictors: Response Variable: area which is the burned area in forest.</description>
+      <description>In this mini project, I will use the Forest Fires data is available at UCI to perform a model and feature Selection task.</description>
     </item>
     
     <item>
