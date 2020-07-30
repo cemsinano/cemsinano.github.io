@@ -105,6 +105,15 @@ Pythia is a Python package for quick and clean Linear Regression Analysis.</desc
     </item>
     
     <item>
+      <title>Simple Cookie Cutter Project Template Generator</title>
+      <link>https://cemsinano.github.io/post/cookiecutter/</link>
+      <pubDate>Sat, 18 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/cookiecutter/</guid>
+      <description>It is a command-line utility helps developer to create a cookiecutter project template.</description>
+    </item>
+    
+    <item>
       <title>Why does the US FED&#39;s Interest rate decision matter?</title>
       <link>https://cemsinano.github.io/post/fed-interest-rate/</link>
       <pubDate>Sun, 01 Oct 2017 00:00:00 +0000</pubDate>
