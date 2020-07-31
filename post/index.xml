@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Data Science Blog of Cem Sinan Ozturk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 09 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://cemsinano.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,19 @@
     <item>
       <title>Horse Racing</title>
       <link>https://cemsinano.github.io/post/horse-racing/</link>
-      <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 09 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://cemsinano.github.io/post/horse-racing/</guid>
       <description>In this project, I am going to perform a prediction analysis for the winner of horse racing.</description>
+    </item>
+    
+    <item>
+      <title>Adding Textual Data on Financial Valuation Task</title>
+      <link>https://cemsinano.github.io/post/capstone-summary/</link>
+      <pubDate>Wed, 11 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/capstone-summary/</guid>
+      <description>Unfortunately, the project repository is not accessible publicly. However, I will provide a project summary with respecting the research work our partners doing from UBC Sauder School of Business.</description>
     </item>
     
     <item>
@@ -40,6 +49,16 @@ The project repository is accessible, here.</description>
     </item>
     
     <item>
+      <title>Pythia</title>
+      <link>https://cemsinano.github.io/post/pythia/</link>
+      <pubDate>Sun, 18 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cemsinano.github.io/post/pythia/</guid>
+      <description>The project repository is accessible, here.
+Pythia is a Python package for quick and clean Linear Regression Analysis.</description>
+    </item>
+    
+    <item>
       <title>Karl</title>
       <link>https://cemsinano.github.io/post/karl/</link>
       <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
@@ -50,19 +69,9 @@ Karl is an R package for quick and clean Linear Regression Analysis.</descriptio
     </item>
     
     <item>
-      <title>Pythia</title>
-      <link>https://cemsinano.github.io/post/pythia/</link>
-      <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://cemsinano.github.io/post/pythia/</guid>
-      <description>The project repository is accessible, here.
-Pythia is a Python package for quick and clean Linear Regression Analysis.</description>
-    </item>
-    
-    <item>
       <title>Analysis of Forest Fires Dataset</title>
       <link>https://cemsinano.github.io/post/forest-fire-feature-selection/</link>
-      <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 01 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>https://cemsinano.github.io/post/forest-fire-feature-selection/</guid>
       <description>In this mini project, I will use the Forest Fires data is available at UCI to perform a model and feature Selection task.</description>
